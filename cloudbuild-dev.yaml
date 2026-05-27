@@ -14,7 +14,7 @@ steps:
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
-    args: ['app', 'deploy', '--image-url=us-central1-docker.pkg.dev/$PROJECT_ID/repo-dev/app:$SHORT_SHA', '--service=desarrollo', '--quiet']
+    args: ['app', 'deploy', '--image-url=us-central1-docker.pkg.dev/$PROJECT_ID/repo-dev/app:$SHORT_SHA', '--service-account=desarrollo', '--quiet']
 
 timeout: '1200s'
 options:
