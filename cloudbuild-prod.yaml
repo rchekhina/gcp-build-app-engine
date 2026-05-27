@@ -19,3 +19,5 @@ steps:
     app:$SHORT_SHA', '--quiet']
 
 timeout: '1200s'
+options:
+  logging: CLOUD_LOGGING_ONLY

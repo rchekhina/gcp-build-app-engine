@@ -19,3 +19,5 @@ $SHORT_SHA', '.']
     app:$SHORT_SHA', '--service=desarrollo', '--quiet']
 
 timeout: '1200s'
+options:
+  logging: CLOUD_LOGGING_ONLY
