@@ -1,21 +1,21 @@
 steps:
-
-# 1. Compilar imagen de Docker usando el SHA corto del commit como tag
-
+  # 1. Compilar imagen de Docker
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/repo-dev/app:$SHORT_SHA', '.']
-
-# 2. Subir el contenedor resultante al Artifact Registry de Desarrollo
-
+  
+  # 2. Subir el contenedor a Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/repo-dev/app:$SHORT_SHA']
-
-# 3. Ordenar el despliegue a App Engine apuntando al servicio alternativo "desarrollo"
-
+  
+  # 3. Desplegar en App Engine (Sintaxis corregida en lista rígida)
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
-    args: ['app', 'deploy', '--image-url=us-central1-docker.pkg.dev/$PROJECT_ID/repo-dev/app:$SHORT_SHA', '--service-account=desarrollo', '--quiet']
+    args:
+      - 'app'
+      - 'deploy'
+      - '--image-url=us-central1-docker.pkg.dev/$PROJECT_ID/repo-dev/app:$SHORT_SHA'
+      - '--service=desarrollo'
+      - '--quiet'
 
-timeout: '1200s'
 options:
   logging: CLOUD_LOGGING_ONLY
