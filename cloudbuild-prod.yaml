@@ -1,21 +1,21 @@
 steps:
-
-# 1. Compilar imagen de Docker optimizada
-
+  # 1. Compilar imagen de Docker
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/repo-prod/app:$SHORT_SHA', '.']
-
-# 2. Subir el contenedor al Artifact Registry de Producción
-
+  
+  # 2. Subir el contenedor a Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/repo-prod/app:$SHORT_SHA']
-
-# 3. Desplegar en el servicio por defecto ("default") de Producción
-
+  
+  # 3. Desplegar pasando el archivo app-prod.yaml como primer argumento
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
-    args: ['app', 'deploy', '--image-url=us-central1-docker.pkg.dev/$PROJECT_ID/repo-prod/app:$SHORT_SHA', '--quiet']
+    args:
+      - 'app'
+      - 'deploy'
+      - 'app-prod.yaml'
+      - '--image-url=us-central1-docker.pkg.dev/$PROJECT_ID/repo-prod/app:$SHORT_SHA'
+      - '--quiet'
 
-timeout: '1200s'
 options:
   logging: CLOUD_LOGGING_ONLY

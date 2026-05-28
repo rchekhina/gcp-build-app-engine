@@ -1,0 +1,4 @@
+runtime: custom
+env: flex
+# Nota: No ponemos la línea 'service:' porque el entorno principal 
+# debe llamarse obligatoriamente 'default' en App Engine.
